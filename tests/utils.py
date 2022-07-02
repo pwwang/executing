@@ -79,7 +79,8 @@ class Tester(object):
     def __setitem__(self, key, value):
         node = self.get_node(ast.Assign)
         self.check(node.value, value)
-        self.check(subscript_item(node.targets[0]), key)
+        if not isinstance(key, slice):
+            self.check(subscript_item(node.targets[0]), key)
         self.check(node.targets[0].value, self)
         return self
 
